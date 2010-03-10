@@ -63,6 +63,9 @@ class NoseTestSuiteRunner(DjangoTestSuiteRunner):
         if hasattr(settings, 'NOSE_ARGS'):
             nose_argv.extend(settings.NOSE_ARGS)
 
+        if not test_labels and hasattr(settings, 'DEFAULT_TEST_APPS'):
+            nose_argv.extend(settings.DEFAULT_TEST_APPS)
+
         # Skip over 'manage.py test' and any arguments handled by django.
         django_opts = ['--noinput']
         for opt in BaseCommand.option_list:
